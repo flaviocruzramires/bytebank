@@ -1,17 +1,17 @@
-import 'package:bytebank_app/models/contact.dart';
-import 'package:bytebank_app/screen/contact_list.dart';
 import 'package:bytebank_app/screen/dashboard.dart';
 import 'package:flutter/material.dart';
 
-import 'database/app_database.dart';
-
 void main() {
   runApp(BytebankApp());
-  save(Contact(id: 8, name: 'Flavio Caixa8', conta: 3000)).then((id) {
-    findAll().then((ContactList) {
-      debugPrint(ContactList.toString());
-    });
-  });
+  // save(Contact(id: 8, name: 'Flavio Caixa8', conta: 3000)).then((id) {
+  //   findAll().then((ContactList) {
+  //     debugPrint(ContactList.toString());
+  //   });
+  // });
+
+  // findAll().then((ContactList) {
+  //     debugPrint(ContactList.toString());
+  // });
 }
 
 class BytebankApp extends StatelessWidget {

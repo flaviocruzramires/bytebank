@@ -1,10 +1,17 @@
-import 'package:bytebank_app/database/app_database.dart';
+import 'package:bytebank_app/database/dao/contact_dao.dart';
 import 'package:bytebank_app/models/contact.dart';
 import 'package:bytebank_app/screen/contact_form.dart';
 import 'package:flutter/material.dart';
 
-class ContactList extends StatelessWidget {
+class ContactList extends StatefulWidget {
   const ContactList({super.key});
+
+  @override
+  State<ContactList> createState() => _ContactListState();
+}
+
+class _ContactListState extends State<ContactList> {
+  final ContactDao _dao = ContactDao();
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +20,9 @@ class ContactList extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         title: const Text('Contatos'),
       ),
-      body: FutureBuilder(
-        future: findAll(),
+      body: FutureBuilder<List<Contact>>(
+        initialData: [],
+        future: _dao.findAll(),
         builder: (context, snapshot) {
           final List<Contact>? contacts = snapshot.data;
           return ListView.builder(
@@ -64,7 +72,7 @@ class _ContactItem extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          contact.conta.toString(),
+          contact.accountNumber.toString(),
           style: const TextStyle(
             fontSize: 14,
             color: Colors.blueGrey,
