@@ -1,5 +1,4 @@
-import 'package:bytebank_app/models/contact_model.dart';
-import 'package:bytebank_app/screen/contact_form.dart';
+import 'package:bytebank_app/models/contact.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -15,7 +14,7 @@ Future<Database> createDataBase() {
   });
 }
 
-Future<int> save(ContactModel contato) {
+Future<int> save(Contact contato) {
   return createDataBase().then((db) {
     final Map<String, dynamic> contactMap = Map();
     contactMap['id'] = contato.id;
@@ -25,13 +24,13 @@ Future<int> save(ContactModel contato) {
   });
 }
 
-Future<List<ContactModel>> findAll() {
+Future<List<Contact>> findAll() {
   return createDataBase().then((db) {
     return db
         .query('contacts', columns: ['id', 'name', 'account']).then((maps) {
-      final List<ContactModel> contatosLista = [];
+      final List<Contact> contatosLista = [];
       for (Map<String, dynamic> map in maps) {
-        final ContactModel contato = ContactModel(
+        final Contact contato = Contact(
           id: map['id'],
           name: map['name'],
           conta: map['account'],

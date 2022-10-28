@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-class ContactModel {
+class Contact {
   final int id;
   final String name;
   final int conta;
-  ContactModel({
+  Contact({
     required this.id,
     required this.name,
     required this.conta,
@@ -17,8 +17,8 @@ class ContactModel {
     return {'name': name, 'conta': conta};
   }
 
-  factory ContactModel.fromMap(Map<String, dynamic> map) {
-    return ContactModel(
+  factory Contact.fromMap(Map<String, dynamic> map) {
+    return Contact(
       id: map['id'] ?? 0,
       name: map['name'] ?? '',
       conta: map['conta']?.toInt() ?? 0,
@@ -27,6 +27,6 @@ class ContactModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ContactModel.fromJson(String source) =>
-      ContactModel.fromMap(json.decode(source));
+  factory Contact.fromJson(String source) =>
+      Contact.fromMap(json.decode(source));
 }

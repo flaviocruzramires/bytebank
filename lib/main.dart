@@ -1,12 +1,12 @@
 import 'package:bytebank_app/database/app_database.dart';
-import 'package:bytebank_app/models/contact_model.dart';
+import 'package:bytebank_app/models/contact.dart';
 import 'package:bytebank_app/screen/contact_list.dart';
 import 'package:bytebank_app/screen/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(BytebankApp());
-  save(ContactModel(id: 1, name: 'Flavio', conta: 1254)).then((id) {
+  save(Contact(id: 5, name: 'Flavio Nubank', conta: 887748)).then((id) {
     findAll().then((ContactList) {
       debugPrint(ContactList.toString());
     });

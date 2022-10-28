@@ -1,4 +1,4 @@
-import 'package:bytebank_app/models/contact_model.dart';
+import 'package:bytebank_app/models/contact.dart';
 import 'package:bytebank_app/ui/styles/colors_app.dart';
 import 'package:bytebank_app/ui/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -64,8 +64,8 @@ class _ContactFormState extends State<ContactForm> {
                       final int account =
                           int.tryParse(_accountController.text)!;
 
-                      final ContactModel contato =
-                          ContactModel(id: id, name: name, conta: account);
+                      final Contact contato =
+                          Contact(id: id, name: name, conta: account);
                       Navigator.pop(context, contato);
                       // Navigator.of(context)
                       //     .pushNamedAndRemoveUntil('/home', (route) => false);
