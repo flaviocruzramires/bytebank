@@ -26,18 +26,17 @@ Future<int> save(Contact contato) {
 
 Future<List<Contact>> findAll() {
   return createDataBase().then((db) {
-    return db
-        .query('contacts', columns: ['id', 'name', 'account']).then((maps) {
-      final List<Contact> contatosLista = [];
+    return db.query('contacts').then((maps) {
+      final List<Contact> contacts = List.empty();
       for (Map<String, dynamic> map in maps) {
         final Contact contato = Contact(
           id: map['id'],
           name: map['name'],
           conta: map['account'],
         );
-        contatosLista.add(contato);
+        contacts.add(contato);
       }
-      return contatosLista;
+      return contacts;
     });
   });
 }

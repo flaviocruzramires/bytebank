@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:bytebank_app/ui/styles/colors_app.dart';
 import 'package:flutter/material.dart';
 
