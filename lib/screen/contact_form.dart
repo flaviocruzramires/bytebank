@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/styles/button_styles.dart';
 import '../ui/styles/text_styles.dart';
+import 'package:validatorless/validatorless.dart';
 
 class ContactForm extends StatefulWidget {
   const ContactForm({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _ContactFormState extends State<ContactForm> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _accountController = TextEditingController();
   final ContactDao _dao = ContactDao();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class _ContactFormState extends State<ContactForm> {
         title: const Text('Informe os dados bancários.'),
       ),
       body: Form(
+        key: formKey,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -38,9 +41,11 @@ class _ContactFormState extends State<ContactForm> {
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(
-                      label: Text(
-                    'Nome do Contato *',
-                  )),
+                    label: Text(
+                      'Nome do Contato *',
+                    ),
+                  ),
+                  validator: Validatorless.required('Campo obrigatório.'),
                 ),
                 const SizedBox(
                   height: 20,
@@ -52,6 +57,7 @@ class _ContactFormState extends State<ContactForm> {
                       'Nº da Conta *',
                     ),
                   ),
+                  validator: Validatorless.required('Campo obrigatório.'),
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(
@@ -60,14 +66,21 @@ class _ContactFormState extends State<ContactForm> {
                 Button(
                   width: MediaQuery.of(context).size.height * .9,
                   onPressed: () {
-                    const int id = 0;
-                    final String name = _nameController.text;
-                    final int account = int.tryParse(_accountController.text)!;
+                    final formValid = formKey.currentState?.validate() ?? false;
 
-                    final Contact contato =
-                        Contact(id: id, name: name, accountNumber: account);
+                    if (formValid) {
+                      const int id = 0;
+                      final String name = _nameController.text;
+                      final int account =
+                          int.tryParse(_accountController.text)!;
 
-                    _dao.save(contato).then((value) => Navigator.pop(context));
+                      final Contact contato =
+                          Contact(id: id, name: name, accountNumber: account);
+
+                      _dao
+                          .save(contato)
+                          .then((value) => Navigator.pop(context));
+                    }
                   },
                   style: ButtonStyles.i.yellowOutLineButton,
                   labelStyle: TextStyles.i.textPrimaryFontBold
